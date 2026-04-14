@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>MONO Studio - Result</title>
+    <link rel="stylesheet" href="style-download.css">
+</head>
+<body>
+    <main class="result-container">
+        <div class="printer-machine">
+            <img src="assets/printer-bottom.png" class="layer-bottom">
+            
+            <div class="photo-slide-container">
+                <img id="final-photo" class="moving-photo">
+            </div>
+
+            <img src="assets/printer-top.png" class="layer-top">
+        </div>
+
+        <div class="sidebar">
+            <h1>Boom!!</h1>
+            <div class="button-group">
+                <button onclick="location.href='index.html'" class="btn-back">Back to Booth</button>
+                <a id="download-link" download="my-photo.png" class="btn-download">Keep My Shot</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Ambil hasil dari localStorage
+        const result = localStorage.getItem('finalResult');
+        if (result) {
+            document.getElementById('final-photo').src = result;
+            document.getElementById('download-link').href = result;
+        }
+    </script>
+</body>
+</html>

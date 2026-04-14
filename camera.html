@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Booth Pro - Camera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-camera.css">
+</head>
+<body>
+
+    <main class="page-container">
+        <div class="yellow-frame">
+            
+            <div class="camera-viewport">
+                <video id="video-stream" autoplay playsinline class="mirror-view"></video>
+                
+                <canvas id="photo-canvas" style="display:none;"></canvas>
+                
+                <div id="flash-effect" class="ring-light-effect"></div>
+                <div id="shutter-flash" class="shutter-flash-overlay"></div>
+
+                <div class="viewfinder-overlay">
+                    <div class="corner top-left"></div>
+                    <div class="corner top-right"></div>
+                    <div class="corner bottom-left"></div>
+                    <div class="corner bottom-right"></div>
+                </div>
+
+                <div id="countdown-overlay" class="countdown-hidden">
+                    <span id="countdown-number">3</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="flash-container">
+                    <span>FLASH</span>
+                    <label class="switch">
+                        <input type="checkbox" id="flash-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <button id="action-btn" class="btn-capture">
+                    <span id="btn-text"></span>
+                </button>
+
+                <div style="width: 60px;"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

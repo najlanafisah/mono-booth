@@ -1,0 +1,106 @@
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #26356E;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh;
+}
+
+.yellow-frame {
+    background-color: #F3AB01;
+    width: 90%; /* Pakai persentase agar responsif */
+    max-width: 900px; /* Batasi biar gak kegedean di monitor gede */
+    aspect-ratio: 4 / 3; /* Kotak kamera biasanya lebih ke 4:3 atau 3:2 */
+    border-radius: 40px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.camera-viewport {
+    width: 95%; 
+    height: 75%; /* Beri ruang untuk tombol di bawah */
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    border: 10px solid rgba(0,0,0,0.1);
+    background: #333; /* Biar gak kosong banget sebelum kamera nyala */
+}
+
+.mirror-view {
+    width: 100%; height: 100%; object-fit: cover;
+    transform: scaleX(-1); /* Efek Mirror */
+}
+
+.btn-capture {
+    width: 80px; height: 80px;
+    background-color: #D82E1D;
+    border: none; border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 10px 0px #8B1E13;
+    transition: all 0.1s;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: 800;
+}
+
+.btn-capture:active {
+    transform: translateY(8px);
+    box-shadow: 0px 2px 0px #8B1E13;
+}
+
+/* Tombol Next Hijau */
+.btn-next {
+    background-color: #046B33;
+    width: 180px; height: 60px;
+    border-radius: 30px;
+    box-shadow: 0px 8px 0px #10431c;
+}
+
+/* Toggle Switch Flash */
+.controls {
+    width: 100%; display: flex; justify-content: space-between; 
+    align-items: center; padding: 0 60px;
+}
+
+.flash-container { display: flex; flex-direction: column; align-items: center; gap: 5px; color: #8B1E13; font-weight: 800; font-size: 0.8rem; }
+.switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; inset: 0; background-color: #ccc; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: #046B33; }
+input:checked + .slider:before { transform: translateX(26px); }
+
+/* Efek Putih Sekeliling (Lash) */
+.ring-light-effect {
+    position: absolute; inset: 0;
+    box-shadow: inset 0 0 100px 50px rgba(255, 255, 255, 0);
+    z-index: 2; pointer-events: none;
+    transition: box-shadow 0.3s;
+}
+
+.ring-light-active {
+    box-shadow: inset 0 0 150px 80px rgba(255, 255, 255, 1) !important;
+}
+
+.shutter-flash-overlay {
+    position: absolute; inset: 0; background: white; opacity: 0; z-index: 10;
+}
+.flash-active { animation: flashAnim 0.3s; }
+@keyframes flashAnim { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+.corner { position: absolute; width: 40px; height: 40px; border: 6px solid #ccc; z-index: 3; opacity: 0.5; }
+.top-left { top: 30px; left: 30px; border-right: none; border-bottom: none; }
+.top-right { top: 30px; right: 30px; border-left: none; border-bottom: none; }
+.bottom-left { bottom: 30px; left: 30px; border-right: none; border-top: none; }
+.bottom-right { bottom: 30px; right: 30px; border-left: none; border-top: none; }
+
+#countdown-overlay {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-size: 10rem; color: #F3AB01; z-index: 100; font-weight: 800;
+}
+.countdown-hidden { display: none; }

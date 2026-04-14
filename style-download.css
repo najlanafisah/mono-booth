@@ -1,0 +1,65 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body {
+    background-color: #F3AB01; /* Warna kuning background kamu */
+    height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.result-container {
+    display: flex; width: 90%; max-width: 1200px; align-items: center; gap: 80px;
+}
+
+/* CONTAINER PRINTER */
+.printer-machine {
+    position: relative;
+    width: 500px;
+    height: 600px;
+    display: flex; justify-content: center;
+}
+
+.layer-bottom {
+    position: absolute; top: 30px; width: 100%; z-index: 1;
+}
+
+.layer-top {
+    position: absolute; bottom: 34rem; width: 100%; z-index: 3;
+}
+
+/* TEMPAT FOTO KELUAR */
+.photo-slide-container {
+    position: absolute;
+    top: 50px;
+    width: 380px;
+    height: 1000px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.moving-photo {
+    width: 100%;
+    transform: translateY(-100%); /* Sembunyi di atas */
+    animation: printOut 3s ease-out forwards; /* Jalankan animasi */
+    animation-delay: 0.5s;
+}
+
+@keyframes printOut {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(0); }
+}
+
+/* SIDEBAR & BUTTONS */
+.sidebar h1 { font-size: 5rem; color: white; margin-bottom: 30px; font-weight: 900; }
+.button-group { display: flex; flex-direction: column; gap: 15px; }
+
+.btn-back, .btn-download {
+    padding: 15px 30px; border-radius: 50px; border: none;
+    font-size: 1.2rem; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    text-decoration: none; transition: 0.2s;
+}
+
+.btn-back { background-color: #26356E; color: white; box-shadow: 0 6px 0 #151e3f; }
+.btn-download { background-color: #046B33; color: white; box-shadow: 0 6px 0 #023a1c; }
+
+.btn-back:active, .btn-download:active { transform: translateY(4px); box-shadow: 0 2px 0 #000; }
