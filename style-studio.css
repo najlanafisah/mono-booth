@@ -1,13 +1,17 @@
 * {
-    margin: 0; padding: 0; box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
 body {
     background-color: #046B33;
     height: 100vh;
-    display: flex; justify-content: center; align-items: center;
-    overflow: visible; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
 }
 
 .studio-container {
@@ -24,11 +28,11 @@ body {
     width: 450px;
     padding: 30px;
     padding-bottom: 100px;
-    box-shadow: 15px 15px 0px rgba(0,0,0,0.2);
+    box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.2);
     position: relative;
-    display: flex; 
-    flex-direction: column;     
-    gap: 25px; 
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     z-index: 1;
     position: relative;
     overflow: hidden;
@@ -47,6 +51,7 @@ body {
     bottom: 20px;
     left: 30px;
     width: 60px;
+    height: 60px;
 }
 
 .sidebar {
@@ -64,14 +69,25 @@ body {
     height: 520px;
     padding: 20px;
     position: relative;
-    box-shadow: 10px 10px 0px #9c6d00, 
-                inset 14px 14px 0px rgba(0,0,0,0.3); 
+    box-shadow: 0px 14px 0px #9c6d00,
+        inset 14px 14px 0px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
 }
 
-.sticker-box::-webkit-scrollbar { width: 12px; }
-.sticker-box::-webkit-scrollbar-track { background: #1a254e; border-radius: 10px; }
-.sticker-box::-webkit-scrollbar-thumb { background-color: #046B33; border-radius: 10px; border: 2px solid #26356E; }
+.sticker-box::-webkit-scrollbar {
+    width: 12px;
+}
+
+.sticker-box::-webkit-scrollbar-track {
+    background: #1a254e;
+    border-radius: 10px;
+}
+
+.sticker-box::-webkit-scrollbar-thumb {
+    background-color: #046B33;
+    border-radius: 10px;
+    border: 2px solid #26356E;
+}
 
 .sticker-grid {
     display: grid;
@@ -85,13 +101,15 @@ body {
     object-fit: contain;
     cursor: grab;
     touch-action: none;
-    user-select: none; /* Biar nggak ke-highlight biru */
-    -webkit-user-drag: none; /* Matikan drag bawaan browser */
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 #photo-paper {
-    position: relative; /* Wajib sebagai patokan stiker */
-    overflow: hidden;   /* Supaya stiker yang keluar kertas terpotong rapi */
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+    overflow: visible;
 }
 
 .button-group {
@@ -99,13 +117,17 @@ body {
     gap: 20px;
 }
 
-.btn-next-studio, .btn-reset-studio {
+.btn-next-studio,
+.btn-reset-studio {
     border: none;
     border-radius: 50px;
     padding: 18px;
     font-size: 1.4rem;
     font-weight: 800;
-    display: flex; justify-content: center; align-items: center; gap: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
     cursor: pointer;
     transition: all 0.1s;
     flex: 1;
@@ -116,6 +138,7 @@ body {
     color: white;
     box-shadow: 0px 8px 0px #8B1E13;
 }
+
 .btn-next-studio:active {
     transform: translateY(6px);
     box-shadow: 0px 2px 0px #8B1E13;
@@ -126,7 +149,63 @@ body {
     color: white;
     box-shadow: 0px 8px 0px #222;
 }
+
 .btn-reset-studio:active {
     transform: translateY(6px);
     box-shadow: 0px 2px 0px #222;
+}
+
+.sticker-and-colors {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+/* --- STYLING PALETTE WARNA (EFEK 3D & CLICK) --- */
+.color-palette {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.color-pill {
+    width: 76px;
+    height: 76px;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    background-color: var(--bg-color);
+    transition: all 0.1s ease;
+    transform-style: preserve-3d;
+}
+
+.color-pill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    filter: brightness(0.6);
+    border-radius: 12px;
+    transform: translateZ(-1px) translateY(8px);
+    transition: all 0.1s ease;
+    z-index: -1;
+}
+
+.color-pill:hover {
+    transform: translateY(-2px);
+}
+
+.color-pill:hover::after {
+    transform: translateZ(-1px) translateY(10px);
+}
+
+.color-pill:active {
+    transform: translateY(6px);
+}
+
+.color-pill:active::after {
+    transform: translateZ(-1px) translateY(2px);
 }

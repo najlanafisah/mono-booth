@@ -1,7 +1,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
 body {
-    background-color: #F3AB01; /* Warna kuning background kamu */
+    background-color: #F3AB01;
     height: 100vh;
     display: flex; justify-content: center; align-items: center;
 }

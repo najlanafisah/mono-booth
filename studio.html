@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
-    <title>MONO Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mono Booth Studio</title>
+
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
-    <link rel="stylesheet" href="style-studio.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <link rel="stylesheet" href="style-studio.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 </head>
+
 <body>
     <main class="studio-container">
         <div class="photo-paper" id="photo-paper">
             <img id="result-1" class="photo-img">
             <img id="result-2" class="photo-img">
-            <img src="assets/mono-mark.png" class="mono-mark">
+
+            <img id="mono-logo" class="mono-mark">
         </div>
-        
+
         <div class="sidebar">
-            <div class="sticker-box">
-                <div class="sticker-grid" id="sticker-shelf"></div>
+            <div class="sticker-and-colors">
+                <div class="color-palette">
+                    <div class="color-pill" style="--bg-color: #26356E; background: #26356E;" data-color="#26356E">
+                    </div>
+                    <div class="color-pill" style="--bg-color: #045d2c; background: #045d2c;" data-color="#045d2c">
+                    </div>
+                    <div class="color-pill" style="--bg-color: #D82E1D; background: #D82E1D;" data-color="#D82E1D">
+                    </div>
+                    <div class="color-pill" style="--bg-color: #ffbb1c; background: #ffbb1c;" data-color="#ffbb1c">
+                    </div>
+                    <div class="color-pill" style="--bg-color: #444444; background: #444444;" data-color="#444444">
+                    </div>
+                    <div class="color-pill" style="--bg-color: #EBEBEB; background: #EBEBEB;" data-color="#EBEBEB">
+                    </div>
+                </div>
+
+                <div class="sticker-box">
+                    <div class="sticker-grid" id="sticker-shelf"></div>
+                </div>
             </div>
+
             <div class="button-group">
                 <button id="reset-studio" class="btn-reset-studio">Reset</button>
                 <button id="next-studio" class="btn-next-studio">Next →</button>
             </div>
         </div>
     </main>
+
     <script src="script-studio.js"></script>
 </body>
+
 </html>
