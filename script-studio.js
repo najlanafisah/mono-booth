@@ -16,6 +16,7 @@ function generateStickers() {
     for (let i = 1; i <= 24; i++) {
         const fileName = i < 10 ? `stiker-0${i}.svg` : `stiker-${i}.svg`;
         const img = document.createElement('img');
+        img.crossOrigin = 'anonymous'; // Safari butuh ini biar canvas gak "tainted"
         img.src = `assets/${fileName}`; 
         img.classList.add('draggable-sticker');
         stickerShelf.appendChild(img);
@@ -79,6 +80,7 @@ function buildLogoSvg(fillColor) {
 function setLogoColor(fillColor) {
     const logoImg = document.getElementById('mono-logo');
     if (!logoImg) return;
+    logoImg.crossOrigin = 'anonymous'; // Safari butuh ini biar canvas gak "tainted"
     const svgString = buildLogoSvg(fillColor);
     logoImg.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
 }
@@ -86,20 +88,36 @@ function setLogoColor(fillColor) {
 // Warna default sesuai desain awal
 setLogoColor('#D82E1D');
 
-// FIX LOGO HILANG: html2canvas kurang reliable nge-render elemen <svg>
-// inline langsung. Solusinya, sebelum capture, kita ubah dulu SVG logo
-// jadi <img> (pakai data URI) yang mempertahankan warna fill saat itu.
-// html2canvas jauh lebih konsisten nge-render <img> dibanding <svg> DOM.
 function convertLogoToImage() {
     return document.getElementById('mono-logo');
 }
 
-function waitForImageLoad(img) {
+// Pakai decode() dulu (lebih reliable di Safari), fallback ke cek .complete
+async function waitForImageLoad(img) {
+    if (!img) return;
+    try {
+        if (img.decode) {
+            await img.decode();
+            return;
+        }
+    } catch (e) {
+        // fallback di bawah kalau decode() gagal/gak didukung
+    }
     return new Promise((resolve) => {
-        if (!img || img.complete) return resolve();
+        if (img.complete) return resolve();
         img.onload = () => resolve();
         img.onerror = () => resolve();
     });
+}
+
+// Pastikan SEMUA gambar di photo-paper (stiker + logo) sudah kebaca
+// sebelum html2canvas jalan. Ini yang paling sering jadi biang kerok
+// "gagal capture" di Safari/Mac, karena Safari lebih strict soal
+// timing loading gambar dibanding Chrome.
+async function waitForAllImages(container) {
+    const imgs = Array.from(container.querySelectorAll('img'));
+    imgs.forEach(img => { if (!img.crossOrigin) img.crossOrigin = 'anonymous'; });
+    await Promise.all(imgs.map(waitForImageLoad));
 }
 
 // Tombol Next (Pindah ke Download + Save Gambar)
@@ -116,8 +134,7 @@ document.getElementById('next-studio').addEventListener('click', async () => {
     btn.style.pointerEvents = "none"; // Biar gak diklik dua kali
 
     try {
-        const logoImg = convertLogoToImage();
-        await waitForImageLoad(logoImg);
+        await waitForAllImages(element);
 
         const canvas = await html2canvas(element, {
             useCORS: true,
@@ -133,6 +150,9 @@ document.getElementById('next-studio').addEventListener('click', async () => {
         window.location.href = 'download.html';
     } catch (err) {
         console.error("Gagal potret:", err);
+        // Sementara ditampilkan biar gampang debug di device yang gagal
+        // (mis. Mac/Safari). Boleh dihapus lagi kalau udah beres.
+        alert("Gagal capture: " + (err && err.message ? err.message : err));
         btn.innerText = "Next →";
         btn.style.pointerEvents = "all";
     }
