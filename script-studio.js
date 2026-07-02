@@ -143,8 +143,15 @@ document.getElementById('next-studio').addEventListener('click', async () => {
             backgroundColor: null // Biar background transparan kalau perlu
         });
 
-        const finalImage = canvas.toDataURL("image/png");
-        localStorage.setItem('finalResult', finalImage);
+        const finalImage = canvas.toDataURL("image/jpeg", 0.85);
+        try {
+            localStorage.setItem('finalResult', finalImage);
+        } catch (storageErr) {
+            // Kalau masih kepenuhan juga, bersihin foto mentah (sudah gak
+            // perlu lagi setelah proses gabung ini) baru coba simpan ulang.
+            localStorage.removeItem('capturedPhotos');
+            localStorage.setItem('finalResult', finalImage);
+        }
         
         // Pindah ke halaman download
         window.location.href = 'download.html';

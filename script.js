@@ -84,7 +84,7 @@ function cekrek() {
     context.restore();
 
     // Simpan ke array savedPhotos
-    const imageData = canvas.toDataURL('image/png');
+    const imageData = canvas.toDataURL('image/jpeg', 0.85);
     savedPhotos.push(imageData);
     // --------------------------------------
 
